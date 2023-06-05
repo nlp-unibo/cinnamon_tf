@@ -2,7 +2,7 @@ from typing import Type, Optional
 
 from cinnamon_core.core.configuration import Configuration, C
 from cinnamon_core.core.registry import register, Registry
-from components.callback import TFEarlyStopping
+from cinnamon_tf.components.callback import TFEarlyStopping
 
 
 class TFEarlyStoppingConfig(Configuration):

@@ -2,7 +2,7 @@ from typing import Type, Iterable
 
 from cinnamon_core.core.configuration import Configuration, C
 from cinnamon_core.core.registry import Registry, register
-from components.helper import TFHelper
+from cinnamon_tf.components.helper import TFHelper
 
 
 class TFHelperConfig(Configuration):
