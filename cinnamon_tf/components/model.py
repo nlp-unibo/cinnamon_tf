@@ -4,6 +4,7 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, Optional, Dict, Union, AnyStr, Tuple, Iterator
 
+import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
 
@@ -30,7 +31,7 @@ class TFNetwork(Network):
             self,
             batch_x: Any,
             batch_y: Any
-    ) -> Tuple[Any, Dict, Any, Dict, Any]:
+    ) -> Tuple[Any, Any, Dict, Any, Dict, Any]:
         with tf.GradientTape() as tape:
             loss, \
                 true_loss, \
@@ -40,7 +41,7 @@ class TFNetwork(Network):
                                                         batch_y,
                                                         training=True)
         grads = tape.gradient(loss, self.model.trainable_variables)
-        return loss, loss_info, predictions, model_additional_info, grads
+        return loss, loss, loss_info, predictions, model_additional_info, grads
 
     @tf.function(reduce_retracing=True)
     def batch_fit(
@@ -49,6 +50,7 @@ class TFNetwork(Network):
             batch_y: Any
     ) -> Tuple[Dict, Any, Dict]:
         loss, \
+            true_loss, \
             loss_info, \
             predictions, \
             model_additional_info, \
@@ -58,8 +60,7 @@ class TFNetwork(Network):
         self.optimizer.apply_gradients(zip(grads, self.model.trainable_variables))
 
         loss_info = {f'train_{key}': item for key, item in loss_info.items()}
-        loss_info['train_loss'] = loss
-
+        loss_info['train_loss'] = true_loss
         return loss_info, predictions, model_additional_info
 
     @tf.function(reduce_retracing=True)
@@ -85,7 +86,7 @@ class TFNetwork(Network):
                                                     batch_y=batch_y,
                                                     training=False)
         loss_info = {f'val_{key}': item for key, item in loss_info.items()}
-        loss_info['val_loss'] = loss
+        loss_info['val_loss'] = true_loss
         return loss, true_loss, loss_info, predictions, model_additional_info
 
     def save_model(
@@ -179,46 +180,6 @@ class TFNetwork(Network):
             metrics: Optional[Metric] = None
     ) -> FieldDict:
         loss = defaultdict(float)
-
-        data_iterator: Iterator = data.iterator()
-        for batch_idx in tqdm(range(data.steps), leave=True, position=0, desc=f'Evaluating'):
-
-            if callbacks:
-                callbacks.run(hookpoint='on_batch_evaluate_begin',
-                              logs={'batch': batch_idx})
-
-            batch_loss, \
-                true_batch_loss, \
-                batch_loss_info, \
-                batch_predictions, \
-                model_additional_info = self.batch_evaluate(*next(data_iterator))
-
-            batch_info = {key: item.numpy() for key, item in batch_loss_info.items()}
-
-            if callbacks:
-                callbacks.run(hookpoint='on_batch_evaluate_end',
-                              logs={'batch': batch_idx,
-                                    'batch_info': batch_info,
-                                    'batch_loss': batch_loss,
-                                    'true_batch_loss': true_batch_loss,
-                                    'batch_predictions': batch_predictions,
-                                    'model_additional_info': model_additional_info
-                                    })
-
-            for key, item in batch_info.items():
-                loss[key] += item
-
-        loss = {key: item / data.steps for key, item in loss.items()}
-        return FieldDict(loss)
-
-    @guard()
-    def evaluate_and_predict(
-            self,
-            data: FieldDict,
-            callbacks: Optional[Callback] = None,
-            metrics: Optional[Metric] = None
-    ) -> FieldDict:
-        loss = defaultdict(float)
         predictions = []
 
         data_iterator: Iterator = data.iterator()
@@ -234,7 +195,7 @@ class TFNetwork(Network):
                 batch_predictions, \
                 model_additional_info = self.batch_evaluate(*next(data_iterator))
 
-            batch_info = {f'val_{key}': item.numpy() for key, item in batch_loss_info.items()}
+            batch_info = {key: item.numpy() for key, item in batch_loss_info.items()}
 
             if callbacks:
                 callbacks.run(hookpoint='on_batch_evaluate_and_predict_end',
@@ -248,11 +209,17 @@ class TFNetwork(Network):
             for key, item in batch_info.items():
                 loss[key] += item
 
-            predictions.extend(self.parse_model_output(batch_predictions.numpy(), model_additional_info))
+            predictions.extend(self.parse_model_output(batch_predictions, model_additional_info).numpy())
 
         loss = {key: item / data.steps for key, item in loss.items()}
 
-        return FieldDict({**loss, **{'predictions': predictions}})
+        if 'output_iterator' not in data or metrics is None:
+            metrics_info = {}
+        else:
+            ground_truth = np.concatenate([item for item in data.output_iterator()])
+            metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
+
+        return FieldDict({**loss, **metrics_info})
 
     @guard()
     def predict(
@@ -279,7 +246,13 @@ class TFNetwork(Network):
                                     'batch_predictions': batch_predictions,
                                     'model_additional_info': model_additional_info})
 
-        return FieldDict({'predictions': predictions})
+        if 'output_iterator' not in data or metrics is None:
+            metrics_info = {}
+        else:
+            ground_truth = np.concatenate([item for item in data.output_iterator()])
+            metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
+
+        return FieldDict({**{'predictions': predictions}, **metrics_info})
 
     @abc.abstractmethod
     def parse_model_output(
