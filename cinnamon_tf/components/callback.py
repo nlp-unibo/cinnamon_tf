@@ -55,9 +55,11 @@ class TFEarlyStopping(Callback):
         if self.mode == 'min':
             self.monitor_op = np.less
             self.min_delta *= -1
+            self.best_value = np.inf
         elif self.mode == 'max':
             self.monitor_op = np.greater
             self.min_delta *= 1
+            self.best_value = -np.inf
 
     def on_train_begin(
             self,
@@ -73,25 +75,24 @@ class TFEarlyStopping(Callback):
 
     def on_epoch_end(
             self,
-            epoch: int,
             logs: Optional[Dict] = None
     ):
         current = self.get_monitor_value(logs)
         if current is None:
             return
-        if self.monitor_op(current - self.min_delta, self.best):
+        if self.monitor_op(current - self.min_delta, self.best_value):
             self.best_value = current
             self.wait = 0
             if self.restore_best_weights:
-                self.best_weights = self.model.model.get_weights()
+                self.best_weights = self.component.model.get_weights()
         else:
             self.wait += 1
             if self.wait >= self.patience:
-                self.stopped_epoch = epoch
+                self.stopped_epoch = logs['epoch']
                 self.model.model.stop_training = True
                 if self.restore_best_weights:
                     logging_utility.logger.info('Restoring model weights from the end of the best epoch.')
-                    self.model.model.set_weights(self.best_weights)
+                    self.component.model.set_weights(self.best_weights)
 
     def on_train_end(
             self,

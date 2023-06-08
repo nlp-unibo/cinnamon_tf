@@ -120,7 +120,7 @@ class TFNetwork(Network):
 
             if callbacks:
                 callbacks.run(hookpoint='on_epoch_begin',
-                              logs={'epochs': self.epochs})
+                              logs={'epochs': self.epochs, 'epoch': epoch})
 
             epoch_info = defaultdict(float)
             batch_idx = 0

@@ -19,7 +19,7 @@ class TFEarlyStoppingConfig(Configuration):
                          is_required=True,
                          description='Metric/Loss to monitor for performing early stopping')
         config.add_short(name='patience',
-                         value=0,
+                         value=5,
                          type_hint=int,
                          is_required=True,
                          allowed_range=lambda patience: patience > 0,
@@ -29,7 +29,7 @@ class TFEarlyStoppingConfig(Configuration):
                          type_hint=Optional[float],
                          description='Threshold value to consider for start monitoring')
         config.add_short(name='min_delta',
-                         value=0.0,
+                         value=1e-06,
                          type_hint=float,
                          description='Minimum delta difference allowed in checking for new best monitor values')
         config.add_short(name='restore_best_weights',
