@@ -7,13 +7,6 @@ readme_path = Path(__file__).absolute().parent.joinpath('README.md')
 with readme_path.open('r', encoding='utf-8') as fh:
     long_description = fh.read()
 
-requirements_path = Path(__file__).absolute().parent.joinpath('requirements.txt')
-
-with requirements_path.open('r') as f:
-    requirements = f.readlines()
-    requirements = [req for req in requirements if "--hash" not in req]
-    requirements = [req.split("\\")[0].split(":")[0].strip() for req in requirements]
-
 setup(
     name='cinnamon_generic',
     version='0.1',
@@ -35,6 +28,5 @@ setup(
               'cinnamon_tf.components',
               'cinnamon_tf.configurations',
               ],
-    install_requires=requirements,
     python_requires=">=3.6"
 )
