@@ -155,8 +155,13 @@ class TFNetwork(Network):
                 val_info = self.evaluate(data=val_data,
                                          callbacks=callbacks,
                                          metrics=metrics)
+                val_info = val_info.to_value_dict()
 
-                epoch_info = {**epoch_info, **val_info.to_value_dict()}
+                if 'metrics' in val_info:
+                    val_info = {**val_info, **val_info['metrics']}
+                    del val_info['metrics']
+
+                epoch_info = {**epoch_info, **val_info}
 
             logging_utility.logger.info(f'\n{prettify_statistics(epoch_info)}')
 
@@ -219,7 +224,7 @@ class TFNetwork(Network):
             ground_truth = np.concatenate([item for item in data.output_iterator()])
             metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
 
-        return FieldDict({**loss, **metrics_info})
+        return FieldDict({**loss, **{'metrics': metrics_info}})
 
     @guard()
     def predict(
@@ -252,7 +257,7 @@ class TFNetwork(Network):
             ground_truth = np.concatenate([item for item in data.output_iterator()])
             metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
 
-        return FieldDict({**{'predictions': predictions}, **metrics_info})
+        return FieldDict({**{'predictions': predictions}, **{'metrics': metrics_info}})
 
     @abc.abstractmethod
     def parse_model_output(
