@@ -13,6 +13,7 @@ from cinnamon_core.utility import logging_utility
 from cinnamon_generic.components.callback import Callback, guard
 from cinnamon_generic.components.metrics import Metric
 from cinnamon_generic.components.model import Network
+from cinnamon_generic.components.processor import Processor
 from cinnamon_generic.utility.printing_utility import prettify_statistics
 
 
@@ -107,7 +108,8 @@ class TFNetwork(Network):
             train_data: FieldDict,
             val_data: Optional[FieldDict] = None,
             callbacks: Optional[Callback] = None,
-            metrics: Optional[Metric] = None
+            metrics: Optional[Metric] = None,
+            model_processor: Optional[Processor] = None
     ) -> FieldDict:
         logging_utility.logger.info('Training started...')
         logging_utility.logger.info(f'Total steps: {train_data.steps}')
@@ -154,7 +156,8 @@ class TFNetwork(Network):
             if val_data is not None:
                 val_info = self.evaluate(data=val_data,
                                          callbacks=callbacks,
-                                         metrics=metrics)
+                                         metrics=metrics,
+                                         model_processor=model_processor)
                 val_info = val_info.to_value_dict()
 
                 if 'metrics' in val_info:
@@ -182,7 +185,8 @@ class TFNetwork(Network):
             self,
             data: FieldDict,
             callbacks: Optional[Callback] = None,
-            metrics: Optional[Metric] = None
+            metrics: Optional[Metric] = None,
+            model_processor: Optional[Processor] = None
     ) -> FieldDict:
         loss = defaultdict(float)
         predictions = []
@@ -191,7 +195,7 @@ class TFNetwork(Network):
         for batch_idx in tqdm(range(data.steps), leave=True, position=0, desc='Evaluating'):
 
             if callbacks:
-                callbacks.run(hookpoint='on_batch_evaluate_and_predict_begin',
+                callbacks.run(hookpoint='on_batch_evaluate_begin',
                               logs={'batch': batch_idx})
 
             batch_loss, \
@@ -203,7 +207,7 @@ class TFNetwork(Network):
             batch_info = {key: item.numpy() for key, item in batch_loss_info.items()}
 
             if callbacks:
-                callbacks.run(hookpoint='on_batch_evaluate_and_predict_end',
+                callbacks.run(hookpoint='on_batch_evaluate_end',
                               logs={'batch': batch_idx,
                                     'batch_info': batch_info,
                                     'batch_loss': batch_loss,
@@ -214,7 +218,11 @@ class TFNetwork(Network):
             for key, item in batch_info.items():
                 loss[key] += item
 
-            predictions.extend(self.parse_model_output(batch_predictions, model_additional_info).numpy())
+            if model_processor is not None:
+                batch_predictions = model_processor.run(data=batch_predictions)
+            else:
+                batch_predictions = batch_predictions.numpy()
+            predictions.extend(batch_predictions)
 
         loss = {key: item / data.steps for key, item in loss.items()}
 
@@ -231,7 +239,8 @@ class TFNetwork(Network):
             self,
             data: FieldDict,
             callbacks: Optional[Callback] = None,
-            metrics: Optional[Metric] = None
+            metrics: Optional[Metric] = None,
+            model_processor: Optional[Processor] = None
     ) -> FieldDict:
         predictions = []
 
@@ -243,7 +252,11 @@ class TFNetwork(Network):
                               logs={'batch': batch_idx})
 
             batch_predictions, model_additional_info = self.batch_predict(next(data_iterator))
-            predictions.extend(self.parse_model_output(batch_predictions, model_additional_info).numpy())
+            if model_processor is not None:
+                batch_predictions = model_processor.run(data=batch_predictions)
+            else:
+                batch_predictions = batch_predictions.numpy()
+            predictions.extend(batch_predictions)
 
             if callbacks:
                 callbacks.run(hookpoint='on_batch_predict_end',
@@ -258,11 +271,3 @@ class TFNetwork(Network):
             metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
 
         return FieldDict({**{'predictions': predictions}, **{'metrics': metrics_info}})
-
-    @abc.abstractmethod
-    def parse_model_output(
-            self,
-            output: Any,
-            model_additional_info: Dict
-    ) -> Any:
-        pass
