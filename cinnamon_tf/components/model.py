@@ -224,6 +224,7 @@ class TFNetwork(Network):
                 batch_predictions = batch_predictions.numpy()
             predictions.extend(batch_predictions)
 
+        predictions = np.array(predictions)
         loss = {key: item / data.steps for key, item in loss.items()}
 
         if 'output_iterator' not in data or metrics is None:
@@ -264,6 +265,7 @@ class TFNetwork(Network):
                                     'batch_predictions': batch_predictions,
                                     'model_additional_info': model_additional_info})
 
+        predictions = np.array(predictions)
         if 'output_iterator' not in data or metrics is None:
             metrics_info = {}
         else:
