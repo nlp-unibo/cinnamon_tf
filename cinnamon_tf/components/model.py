@@ -241,7 +241,8 @@ class TFNetwork(Network):
             data: FieldDict,
             callbacks: Optional[Callback] = None,
             metrics: Optional[Metric] = None,
-            model_processor: Optional[Processor] = None
+            model_processor: Optional[Processor] = None,
+            suffixes: Optional[Dict] = None
     ) -> FieldDict:
         predictions = []
 
@@ -250,7 +251,8 @@ class TFNetwork(Network):
 
             if callbacks:
                 callbacks.run(hookpoint='on_batch_predict_begin',
-                              logs={'batch': batch_idx})
+                              logs={'batch': batch_idx,
+                                    'suffixes': suffixes})
 
             batch_predictions, model_additional_info = self.batch_predict(next(data_iterator))
             if model_processor is not None:
@@ -263,7 +265,8 @@ class TFNetwork(Network):
                 callbacks.run(hookpoint='on_batch_predict_end',
                               logs={'batch': batch_idx,
                                     'batch_predictions': batch_predictions,
-                                    'model_additional_info': model_additional_info})
+                                    'model_additional_info': model_additional_info,
+                                    'suffixes': suffixes})
 
         predictions = np.array(predictions)
         if 'output_iterator' not in data or metrics is None:
