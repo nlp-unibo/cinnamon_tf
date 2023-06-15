@@ -36,7 +36,7 @@ class TFHelperConfig(Configuration):
 
 @register
 def register_helpers():
-    Registry.register_and_bind(configuration_class=TFHelperConfig,
+    Registry.register_and_bind(config_class=TFHelperConfig,
                                component_class=TFHelper,
                                name='helper',
                                is_default=True,

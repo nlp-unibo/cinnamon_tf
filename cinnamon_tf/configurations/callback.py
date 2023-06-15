@@ -48,7 +48,7 @@ class TFEarlyStoppingConfig(Configuration):
 
 @register
 def register_callbacks():
-    Registry.register_and_bind(configuration_class=TFEarlyStoppingConfig,
+    Registry.register_and_bind(config_class=TFEarlyStoppingConfig,
                                component_class=TFEarlyStopping,
                                name='callback',
                                tags={'early_stopping'},

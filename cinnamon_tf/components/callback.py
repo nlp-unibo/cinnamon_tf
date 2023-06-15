@@ -89,7 +89,7 @@ class TFEarlyStopping(Callback):
             self.wait += 1
             if self.wait >= self.patience:
                 self.stopped_epoch = logs['epoch']
-                self.model.model.stop_training = True
+                self.component.model.stop_training = True
                 if self.restore_best_weights:
                     logging_utility.logger.info('Restoring model weights from the end of the best epoch.')
                     self.component.model.set_weights(self.best_weights)
