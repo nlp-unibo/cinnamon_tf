@@ -16,8 +16,11 @@ class TFHelper(Helper):
     ):
         super().set_seed(seed=seed)
         tf.random.set_seed(seed)
-        tf.config.experimental.enable_op_determinism()
         os.environ['TF_DETERMINISTIC_OPS'] = '1'
+        try:
+            tf.config.experimental.enable_op_determinism()
+        except AttributeError:
+            pass
 
     def clear_status(
             self
