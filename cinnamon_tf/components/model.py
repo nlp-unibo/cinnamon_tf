@@ -60,8 +60,7 @@ class TFNetwork(Network):
 
         self.optimizer.apply_gradients(zip(grads, self.model.trainable_variables))
 
-        loss_info = {f'train_{key}': item for key, item in loss_info.items()}
-        loss_info['train_loss'] = true_loss
+        loss_info['loss'] = true_loss
         return loss_info, predictions, model_additional_info
 
     @tf.function(reduce_retracing=True)
@@ -86,8 +85,7 @@ class TFNetwork(Network):
             model_additional_info = self.batch_loss(batch_x=batch_x,
                                                     batch_y=batch_y,
                                                     training=False)
-        loss_info = {f'val_{key}': item for key, item in loss_info.items()}
-        loss_info['val_loss'] = true_loss
+        loss_info['loss'] = true_loss
         return loss, true_loss, loss_info, predictions, model_additional_info
 
     def save_model(
@@ -136,7 +134,7 @@ class TFNetwork(Network):
                                       logs={'batch': batch_idx})
 
                     batch_info, _, model_additional_info = self.batch_fit(*next(data_iterator))
-                    batch_info = {key: item.numpy() for key, item in batch_info.items()}
+                    batch_info = {f'train_{key}': item.numpy() for key, item in batch_info.items()}
 
                     if callbacks:
                         callbacks.run(hookpoint='on_batch_fit_end',
@@ -157,14 +155,16 @@ class TFNetwork(Network):
                 val_info = self.evaluate(data=val_data,
                                          callbacks=callbacks,
                                          metrics=metrics,
-                                         model_processor=model_processor)
+                                         model_processor=model_processor,
+                                         suffixes={'status': 'training'})
                 val_info = val_info.to_value_dict()
 
+                del val_info['predictions']
                 if 'metrics' in val_info:
                     val_info = {**val_info, **val_info['metrics']}
                     del val_info['metrics']
 
-                epoch_info = {**epoch_info, **val_info}
+                epoch_info = {**epoch_info, **{f'val_{key}': value for key, value in val_info.items()}}
 
             logging_utility.logger.info(f'\n{prettify_statistics(epoch_info)}')
 
@@ -186,7 +186,8 @@ class TFNetwork(Network):
             data: FieldDict,
             callbacks: Optional[Callback] = None,
             metrics: Optional[Metric] = None,
-            model_processor: Optional[Processor] = None
+            model_processor: Optional[Processor] = None,
+            suffixes: Optional[Dict] = None
     ) -> FieldDict:
         loss = defaultdict(float)
         predictions = []
@@ -196,7 +197,8 @@ class TFNetwork(Network):
 
             if callbacks:
                 callbacks.run(hookpoint='on_batch_evaluate_begin',
-                              logs={'batch': batch_idx})
+                              logs={'batch': batch_idx,
+                                    'suffixes': suffixes})
 
             batch_loss, \
                 true_batch_loss, \
@@ -213,7 +215,8 @@ class TFNetwork(Network):
                                     'batch_loss': batch_loss,
                                     'true_batch_loss': true_batch_loss,
                                     'batch_predictions': batch_predictions,
-                                    'model_additional_info': model_additional_info})
+                                    'model_additional_info': model_additional_info,
+                                    'suffixes': suffixes})
 
             for key, item in batch_info.items():
                 loss[key] += item
@@ -233,7 +236,7 @@ class TFNetwork(Network):
             ground_truth = np.concatenate([item for item in data.output_iterator()])
             metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
 
-        return FieldDict({**loss, **{'metrics': metrics_info}})
+        return FieldDict({**loss, **{'metrics': metrics_info}, **{'predictions': predictions}})
 
     @guard()
     def predict(
