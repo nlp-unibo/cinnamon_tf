@@ -13,6 +13,11 @@ class TFHelperConfig(Configuration):
     ) -> C:
         config = super().get_default()
 
+        config.add(name='deterministic',
+                   value=False,
+                   type_hint=bool,
+                   description='If enabled, tensorflow will run operations in deterministic mode.'
+                               'Note that this behaviour may seldom raise CUDA-related errors.')
         config.add(name='limit_gpu_visibility',
                    value=True,
                    type_hint=bool,
