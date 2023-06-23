@@ -61,17 +61,20 @@ class TFEarlyStopping(Callback):
             self.min_delta *= 1
             self.best_value = -np.inf
 
-    def on_train_begin(
-            self,
-            logs: Optional[Dict] = None
-    ):
-        # Allow instances to be re-used
+    def reset(self):
         self.wait = 0
         self.stopped_epoch = 0
         if self.baseline is not None:
             self.best_value = self.baseline
         else:
             self.best_value = np.Inf if self.monitor_op == np.less else -np.Inf
+
+    def on_train_begin(
+            self,
+            logs: Optional[Dict] = None
+    ):
+        # Allow instances to be re-used
+        self.reset()
 
     def on_epoch_end(
             self,
@@ -101,6 +104,8 @@ class TFEarlyStopping(Callback):
         if self.stopped_epoch > 0:
             logging_utility.logger.info(f'Epoch {self.stopped_epoch + 1:.2f} early stopping')
         self.component.model.stop_training = False
+
+        self.reset()
 
     def get_monitor_value(
             self,
