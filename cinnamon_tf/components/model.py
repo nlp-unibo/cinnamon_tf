@@ -116,6 +116,7 @@ class TFNetwork(Network):
         for epoch in range(self.epochs):
 
             if self.model.stop_training:
+                logging_utility.logger.info(f'Stopping training at epoch {epoch}')
                 break
 
             if callbacks:

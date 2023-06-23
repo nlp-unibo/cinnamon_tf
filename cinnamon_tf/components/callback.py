@@ -100,6 +100,7 @@ class TFEarlyStopping(Callback):
     ):
         if self.stopped_epoch > 0:
             logging_utility.logger.info(f'Epoch {self.stopped_epoch + 1:.2f} early stopping')
+        self.component.model.stop_training = False
 
     def get_monitor_value(
             self,
