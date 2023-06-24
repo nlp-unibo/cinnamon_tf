@@ -69,7 +69,7 @@ class TFEarlyStopping(Callback):
         else:
             self.best_value = np.Inf if self.monitor_op == np.less else -np.Inf
 
-    def on_train_begin(
+    def on_fit_begin(
             self,
             logs: Optional[Dict] = None
     ):
@@ -97,7 +97,7 @@ class TFEarlyStopping(Callback):
                     logging_utility.logger.info('Restoring model weights from the end of the best epoch.')
                     self.component.model.set_weights(self.best_weights)
 
-    def on_train_end(
+    def on_fit_end(
             self,
             logs: Optional[Dict] = None
     ):
