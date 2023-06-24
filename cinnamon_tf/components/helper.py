@@ -54,3 +54,6 @@ class TFHelper(Helper):
     ) -> Any:
         self.set_seed(seed=seed)
         self.limit_gpu_usage()
+
+        if self.eager_execution:
+            self.enable_eager_execution()

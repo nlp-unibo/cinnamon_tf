@@ -46,3 +46,14 @@ def register_helpers():
                           name='helper',
                           is_default=True,
                           namespace='tf')
+    Registry.add_and_bind(config_class=TFHelperConfig,
+                          config_constructor=TFHelperConfig.get_delta_class_copy,
+                          config_kwargs={
+                              'params': {
+                                  'eager_execution': True
+                              }
+                          },
+                          component_class=TFHelper,
+                          name='helper',
+                          tags={'eager'},
+                          namespace='tf')
