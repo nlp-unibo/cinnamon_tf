@@ -42,9 +42,9 @@ class TFNetwork(Network):
                                                         batch_y,
                                                         training=True)
         grads = tape.gradient(loss, self.model.trainable_variables)
-        return loss, loss, loss_info, predictions, model_additional_info, grads
+        return loss, true_loss, loss_info, predictions, model_additional_info, grads
 
-    @tf.function(reduce_retracing=True)
+    @tf.function(experimental_relax_shapes=True)
     def batch_fit(
             self,
             batch_x: Any,
@@ -63,7 +63,7 @@ class TFNetwork(Network):
         loss_info['loss'] = true_loss
         return loss_info, predictions, model_additional_info
 
-    @tf.function(reduce_retracing=True)
+    @tf.function(experimental_relax_shapes=True)
     def batch_predict(
             self,
             batch_x: Any,
@@ -72,7 +72,7 @@ class TFNetwork(Network):
                                                         training=False)
         return predictions, model_additional_info
 
-    @tf.function(reduce_retracing=True)
+    @tf.function(experimental_relax_shapes=True)
     def batch_evaluate(
             self,
             batch_x: Any,
