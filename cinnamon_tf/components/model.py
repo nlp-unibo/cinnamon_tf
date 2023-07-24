@@ -26,6 +26,18 @@ class TFNetwork(Network):
             batch_y: Any,
             training: bool = False
     ) -> Tuple[Any, Any, Dict, Any, Dict]:
+        """
+        Computes model loss for given batch.
+
+        Args:
+            batch_x: batch input data in any model-compliant format
+            batch_y: batch ground-truth data in any model-compliant format
+            training: whether the model is in training mode or not
+
+        Returns:
+            The computed loss information for the current step (e.g., losses name and value)
+        """
+
         pass
 
     def batch_train(
@@ -33,6 +45,23 @@ class TFNetwork(Network):
             batch_x: Any,
             batch_y: Any
     ) -> Tuple[Any, Any, Dict, Any, Dict, Any]:
+        """
+        Computes a training step given input data.
+
+        Args:
+            batch_x: batch input training data in any model-compliant format
+            batch_y: batch ground-truth training data in any model-compliant format
+
+        Returns:
+            The following information is returned:
+                - Total loss
+                - Total true loss: total loss without any weighting applied (if no weighting is considered, it equals total loss)
+                - Loss information: a dictionary with loss name as keys and loss value as values
+                - Predictions: model raw output
+                - Model additional info: optional intermediate or additional model raw output
+                - Gradients: loss computed gradients
+        """
+
         with tf.GradientTape() as tape:
             loss, \
                 true_loss, \
@@ -50,6 +79,20 @@ class TFNetwork(Network):
             batch_x: Any,
             batch_y: Any
     ) -> Tuple[Dict, Any, Dict]:
+        """
+        Computes a training step given input data.
+
+        Args:
+            batch_x: batch input training data in any model-compliant format
+            batch_y: batch ground-truth training data in any model-compliant format
+
+        Returns:
+            The computed training information for the current step:
+                - Loss information: a dictionary with loss name as keys and loss value as values
+                - Predictions: model raw output
+                - Model additional info: optional intermediate or additional model raw output
+        """
+
         loss, \
             true_loss, \
             loss_info, \
@@ -68,6 +111,17 @@ class TFNetwork(Network):
             self,
             batch_x: Any,
     ) -> Tuple[Any, Dict]:
+        """
+        Computes model predictions for the given input batch.
+
+        Args:
+            batch_x: batch input training data in any model-compliant format
+
+        Returns:
+            - Predictions: model raw output
+            - Model additional info: optional intermediate or additional model raw output
+        """
+
         predictions, model_additional_info = self.model(batch_x,
                                                         training=False)
         return predictions, model_additional_info
@@ -78,6 +132,22 @@ class TFNetwork(Network):
             batch_x: Any,
             batch_y: Any
     ) -> Tuple[Any, Any, Dict, Any, Dict]:
+        """
+        Computes training loss for the given input batch without a issuing a gradient step.
+
+        Args:
+            batch_x: batch input training data in any model-compliant format
+            batch_y: batch ground-truth training data in any model-compliant format
+
+        Returns:
+            The following information is returned:
+                - Total loss
+                - Total true loss: total loss without any weighting applied (if no weighting is considered, it equals total loss)
+                - Loss information: a dictionary with loss name as keys and loss value as values
+                - Predictions: model raw output
+                - Model additional info: optional intermediate or additional model raw output
+        """
+
         loss, \
             true_loss, \
             loss_info, \
@@ -92,12 +162,26 @@ class TFNetwork(Network):
             self,
             filepath: Union[AnyStr, Path]
     ):
+        """
+        Serializes internal model's weights to filesystem.
+
+        Args:
+            filepath: path where to save model's weights.
+        """
+
         self.model.save_weights(filepath=filepath.joinpath('weights.h5'))
 
     def load_model(
             self,
             filepath: Union[AnyStr, Path]
     ):
+        """
+        Loads internal model's weights from a serialized checkpoint stored in the filesystem.
+
+        Args:
+            filepath: path where the model serialized checkpoint is stored.
+        """
+
         self.model.load_weights(filepath=filepath.joinpath('weights.h5'))
 
     @guard()
@@ -109,6 +193,20 @@ class TFNetwork(Network):
             metrics: Optional[Metric] = None,
             model_processor: Optional[Processor] = None
     ) -> FieldDict:
+        """
+        Fits the model with given training and (optionally) validation data.
+
+        Args:
+            train_data: training data necessary for training the model
+            val_data: validation data that can be used to regularize or monitor the training process
+            callbacks: callbacks for custom execution flow and side effects
+            metrics: metrics for quantitatively evaluate the training process
+            model_processor: a ``Processor`` component that parses model predictions.
+
+        Returns:
+            A ``FieldDict`` storing training information
+        """
+
         logging_utility.logger.info('Training started...')
         logging_utility.logger.info(f'Total steps: {train_data.steps}')
 
@@ -190,6 +288,20 @@ class TFNetwork(Network):
             model_processor: Optional[Processor] = None,
             suffixes: Optional[Dict] = None
     ) -> FieldDict:
+        """
+        Evaluates a trained model on given data and computes model predictions on the same data.
+
+        Args:
+            data: data to evaluate the model on and compute predictions.
+            callbacks: callbacks for custom execution flow and side effects
+            metrics: metrics for quantitatively evaluate the training process
+            model_processor: a ``Processor`` component that parses model predictions.
+            suffixes: suffixes used to uniquely identify evaluation results on input data
+
+        Returns:
+            A ``FieldDict`` storing evaluation and prediction information
+        """
+
         loss = defaultdict(float)
         predictions = []
 
@@ -248,6 +360,20 @@ class TFNetwork(Network):
             model_processor: Optional[Processor] = None,
             suffixes: Optional[Dict] = None
     ) -> FieldDict:
+        """
+        Computes model predictions on the given data.
+
+        Args:
+            data: data to compute model predictions.
+            callbacks: callbacks for custom execution flow and side effects
+            metrics: metrics for quantitatively evaluate the training process
+            model_processor: a ``Processor`` component that parses model predictions.
+            suffixes: suffixes used to uniquely identify evaluation results on input data
+
+        Returns:
+            A ``FieldDict`` storing prediction information
+        """
+
         predictions = []
 
         data_iterator: Iterator = data.input_iterator() if 'input_iterator' in data else data.iterator()

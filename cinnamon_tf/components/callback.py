@@ -61,7 +61,13 @@ class TFEarlyStopping(Callback):
             self.min_delta *= 1
             self.best_value = -np.inf
 
-    def reset(self):
+    def reset(
+            self
+    ):
+        """
+        Resets the ``EarlyStopping`` internal state for component re-use.
+        """
+
         self.wait = 0
         self.stopped_epoch = 0
         self.best_weights = None
