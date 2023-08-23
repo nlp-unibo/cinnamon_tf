@@ -1,0 +1,714 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>cinnamon_tf.components package &#8212; Cinnamon Tensorflow</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cinnamon_tf.components';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Cinnamon Tensorflow</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">cinnamon_tf.components package</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="cinnamon-tf-components-package">
+<h1>cinnamon_tf.components package<a class="headerlink" href="#cinnamon-tf-components-package" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-cinnamon_tf.components.callback">
+<span id="cinnamon-tf-components-callback-module"></span><h2>cinnamon_tf.components.callback module<a class="headerlink" href="#module-cinnamon_tf.components.callback" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_tf.components.callback.</span></span><span class="sig-name descname"><span class="pre">TFEarlyStopping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.callback.TFEarlyStopping" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Callback</span></code></p>
+<p>Stop training when a monitored quantity has stopped improving.
+:param monitor: Quantity to be monitored.
+:param min_delta: Minimum change in the monitored quantity</p>
+<blockquote>
+<div><p>to qualify as an improvement, i.e. an absolute
+change of less than min_delta, will count as no
+improvement.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>patience</strong> – Number of epochs with no improvement
+after which training will be stopped.</p></li>
+<li><p><strong>verbose</strong> – verbosity mode.</p></li>
+<li><p><strong>mode</strong> – One of <cite>{“auto”, “min”, “max”}</cite>. In <cite>min</cite> mode,
+training will stop when the quantity
+monitored has stopped decreasing; in <cite>max</cite>
+mode it will stop when the quantity
+monitored has stopped increasing; in <cite>auto</cite>
+mode, the direction is automatically inferred
+from the name of the monitored quantity.</p></li>
+<li><p><strong>baseline</strong> – Baseline value for the monitored quantity.
+Training will stop if the model doesn’t show improvement over the
+baseline.</p></li>
+<li><p><strong>restore_best_weights</strong> – Whether to restore model weights from
+the epoch with the best value of the monitored quantity.
+If False, the model weights obtained at the last step of
+training are used.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example:
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+callback = tf.keras.callbacks.EarlyStopping(monitor=’val_loss’, patience=3)
+# This callback will stop the training when there is no improvement in
+# the validation loss for three consecutive epochs.
+model.fit(data, labels, epochs=100, callbacks=[callback],</p>
+<blockquote>
+<div><p>validation_data=(val_data, val_labels))</p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping.get_monitor_value">
+<span class="sig-name descname"><span class="pre">get_monitor_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.callback.TFEarlyStopping.get_monitor_value" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping.on_epoch_end">
+<span class="sig-name descname"><span class="pre">on_epoch_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.callback.TFEarlyStopping.on_epoch_end" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping.on_fit_begin">
+<span class="sig-name descname"><span class="pre">on_fit_begin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.callback.TFEarlyStopping.on_fit_begin" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping.on_fit_end">
+<span class="sig-name descname"><span class="pre">on_fit_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.callback.TFEarlyStopping.on_fit_end" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.callback.TFEarlyStopping.reset" title="Permalink to this definition">#</a></dt>
+<dd><p>Resets the <code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code> internal state for component re-use.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_tf.components.helper">
+<span id="cinnamon-tf-components-helper-module"></span><h2>cinnamon_tf.components.helper module<a class="headerlink" href="#module-cinnamon_tf.components.helper" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_tf.components.helper.TFHelper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_tf.components.helper.</span></span><span class="sig-name descname"><span class="pre">TFHelper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Helper</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.helper.TFHelper.clear_status">
+<span class="sig-name descname"><span class="pre">clear_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper.clear_status" title="Permalink to this definition">#</a></dt>
+<dd><p>Clears any backed-specific status.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.helper.TFHelper.enable_eager_execution">
+<span class="sig-name descname"><span class="pre">enable_eager_execution</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper.enable_eager_execution" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.helper.TFHelper.limit_gpu_usage">
+<span class="sig-name descname"><span class="pre">limit_gpu_usage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper.limit_gpu_usage" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.helper.TFHelper.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper.run" title="Permalink to this definition">#</a></dt>
+<dd><p>The default behaviour of <code class="docutils literal notranslate"><span class="pre">Helper</span></code> is to set the input random seed for reproducibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – seed to use to fix reproducibility.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.helper.TFHelper.set_seed">
+<span class="sig-name descname"><span class="pre">set_seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper.set_seed" title="Permalink to this definition">#</a></dt>
+<dd><p>Sets the seed for reproducibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – seed to use to fix reproducibility.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_tf.components.model">
+<span id="cinnamon-tf-components-model-module"></span><h2>cinnamon_tf.components.model module<a class="headerlink" href="#module-cinnamon_tf.components.model" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_tf.components.model.</span></span><span class="sig-name descname"><span class="pre">TFNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_evaluate">
+<span class="sig-name descname"><span class="pre">batch_evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_evaluate" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes training loss for the given input batch without a issuing a gradient step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
+<li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Total loss</p></li>
+<li><p>Total true loss: total loss without any weighting applied (if no weighting is considered, it equals total loss)</p></li>
+<li><p>Loss information: a dictionary with loss name as keys and loss value as values</p></li>
+<li><p>Predictions: model raw output</p></li>
+<li><p>Model additional info: optional intermediate or additional model raw output</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The following information is returned</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_fit">
+<span class="sig-name descname"><span class="pre">batch_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes a training step given input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
+<li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Loss information: a dictionary with loss name as keys and loss value as values</p></li>
+<li><p>Predictions: model raw output</p></li>
+<li><p>Model additional info: optional intermediate or additional model raw output</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The computed training information for the current step</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_loss">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_loss" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes model loss for given batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input data in any model-compliant format</p></li>
+<li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth data in any model-compliant format</p></li>
+<li><p><strong>training</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether the model is in training mode or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The computed loss information for the current step (e.g., losses name and value)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_predict">
+<span class="sig-name descname"><span class="pre">batch_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_predict" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes model predictions for the given input batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>model raw output
+- Model additional info: optional intermediate or additional model raw output</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>Predictions</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_train">
+<span class="sig-name descname"><span class="pre">batch_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_train" title="Permalink to this definition">#</a></dt>
+<dd><p>Computes a training step given input data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
+<li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Total loss</p></li>
+<li><p>Total true loss: total loss without any weighting applied (if no weighting is considered, it equals total loss)</p></li>
+<li><p>Loss information: a dictionary with loss name as keys and loss value as values</p></li>
+<li><p>Predictions: model raw output</p></li>
+<li><p>Model additional info: optional intermediate or additional model raw output</p></li>
+<li><p>Gradients: loss computed gradients</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The following information is returned</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.evaluate" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.fit" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.load_model">
+<span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.load_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads internal model’s weights from a serialized checkpoint stored in the filesystem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – path where the model serialized checkpoint is stored.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.predict" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.save_model">
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.save_model" title="Permalink to this definition">#</a></dt>
+<dd><p>Serializes internal model’s weights to filesystem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – path where to save model’s weights.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cinnamon_tf.components">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cinnamon_tf.components" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_tf.components.callback">cinnamon_tf.components.callback module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.callback.TFEarlyStopping"><code class="docutils literal notranslate"><span class="pre">TFEarlyStopping</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.callback.TFEarlyStopping.get_monitor_value"><code class="docutils literal notranslate"><span class="pre">TFEarlyStopping.get_monitor_value()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.callback.TFEarlyStopping.on_epoch_end"><code class="docutils literal notranslate"><span class="pre">TFEarlyStopping.on_epoch_end()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.callback.TFEarlyStopping.on_fit_begin"><code class="docutils literal notranslate"><span class="pre">TFEarlyStopping.on_fit_begin()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.callback.TFEarlyStopping.on_fit_end"><code class="docutils literal notranslate"><span class="pre">TFEarlyStopping.on_fit_end()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.callback.TFEarlyStopping.reset"><code class="docutils literal notranslate"><span class="pre">TFEarlyStopping.reset()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_tf.components.helper">cinnamon_tf.components.helper module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper"><code class="docutils literal notranslate"><span class="pre">TFHelper</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.clear_status"><code class="docutils literal notranslate"><span class="pre">TFHelper.clear_status()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.enable_eager_execution"><code class="docutils literal notranslate"><span class="pre">TFHelper.enable_eager_execution()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.limit_gpu_usage"><code class="docutils literal notranslate"><span class="pre">TFHelper.limit_gpu_usage()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.run"><code class="docutils literal notranslate"><span class="pre">TFHelper.run()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.set_seed"><code class="docutils literal notranslate"><span class="pre">TFHelper.set_seed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_tf.components.model">cinnamon_tf.components.model module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork"><code class="docutils literal notranslate"><span class="pre">TFNetwork</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.batch_evaluate"><code class="docutils literal notranslate"><span class="pre">TFNetwork.batch_evaluate()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.batch_fit"><code class="docutils literal notranslate"><span class="pre">TFNetwork.batch_fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.batch_loss"><code class="docutils literal notranslate"><span class="pre">TFNetwork.batch_loss()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.batch_predict"><code class="docutils literal notranslate"><span class="pre">TFNetwork.batch_predict()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.batch_train"><code class="docutils literal notranslate"><span class="pre">TFNetwork.batch_train()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.evaluate"><code class="docutils literal notranslate"><span class="pre">TFNetwork.evaluate()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.fit"><code class="docutils literal notranslate"><span class="pre">TFNetwork.fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.load_model"><code class="docutils literal notranslate"><span class="pre">TFNetwork.load_model()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.predict"><code class="docutils literal notranslate"><span class="pre">TFNetwork.predict()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.save_model"><code class="docutils literal notranslate"><span class="pre">TFNetwork.save_model()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_tf.components">Module contents</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="_sources/cinnamon_tf.components.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023, Federico Ruggeri.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
