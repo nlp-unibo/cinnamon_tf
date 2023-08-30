@@ -306,6 +306,7 @@ class TFNetwork(Network):
         predictions = []
 
         data_iterator: Iterator = data.iterator()
+        ground_truth = []
         for batch_idx in tqdm(range(data.steps), leave=True, position=0, desc='Evaluating'):
 
             if callbacks:
@@ -313,23 +314,16 @@ class TFNetwork(Network):
                               logs={'batch': batch_idx,
                                     'suffixes': suffixes})
 
+            batch_x, batch_y = next(data_iterator)
+            ground_truth.append(batch_y)
+
             batch_loss, \
                 true_batch_loss, \
                 batch_loss_info, \
                 batch_predictions, \
-                model_additional_info = self.batch_evaluate(*next(data_iterator))
+                model_additional_info = self.batch_evaluate(batch_x=batch_x, batch_y=batch_y)
 
             batch_info = {key: item.numpy() for key, item in batch_loss_info.items()}
-
-            if callbacks:
-                callbacks.run(hookpoint='on_batch_evaluate_end',
-                              logs={'batch': batch_idx,
-                                    'batch_info': batch_info,
-                                    'batch_loss': batch_loss,
-                                    'true_batch_loss': true_batch_loss,
-                                    'batch_predictions': batch_predictions,
-                                    'model_additional_info': model_additional_info,
-                                    'suffixes': suffixes})
 
             for key, item in batch_info.items():
                 loss[key] += item
@@ -338,6 +332,18 @@ class TFNetwork(Network):
                 batch_predictions = model_processor.run(data=batch_predictions)
             else:
                 batch_predictions = batch_predictions.numpy()
+
+            if callbacks:
+                callbacks.run(hookpoint='on_batch_evaluate_end',
+                              logs={'batch': batch_idx,
+                                    'batch_info': batch_info,
+                                    'batch_loss': batch_loss,
+                                    'true_batch_loss': true_batch_loss,
+                                    'batch_predictions': batch_predictions,
+                                    'batch_y': batch_y,
+                                    'model_additional_info': model_additional_info,
+                                    'suffixes': suffixes})
+
             predictions.extend(batch_predictions)
 
         predictions = np.array(predictions)
@@ -346,7 +352,7 @@ class TFNetwork(Network):
         if 'output_iterator' not in data or metrics is None:
             metrics_info = {}
         else:
-            ground_truth = np.concatenate([item for item in data.output_iterator()])
+            ground_truth = np.concatenate(ground_truth)
             metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
 
         return FieldDict({**loss, **{'metrics': metrics_info}, **{'predictions': predictions}})
@@ -373,6 +379,13 @@ class TFNetwork(Network):
         Returns:
             A ``FieldDict`` storing prediction information
         """
+
+        if 'output_iterator' in data:
+            return self.evaluate(data=data,
+                                 callbacks=callbacks,
+                                 metrics=metrics,
+                                 model_processor=model_processor,
+                                 suffixes=suffixes)
 
         predictions = []
 
