@@ -24,6 +24,7 @@ class TFNetwork(Network):
             self,
             batch_x: Any,
             batch_y: Any,
+            input_additional_info: Dict = {},
             training: bool = False
     ) -> Tuple[Any, Any, Dict, Any, Dict]:
         """
@@ -32,6 +33,7 @@ class TFNetwork(Network):
         Args:
             batch_x: batch input data in any model-compliant format
             batch_y: batch ground-truth data in any model-compliant format
+            input_additional_info: additional input model data
             training: whether the model is in training mode or not
 
         Returns:
@@ -43,7 +45,8 @@ class TFNetwork(Network):
     def batch_train(
             self,
             batch_x: Any,
-            batch_y: Any
+            batch_y: Any,
+            input_additional_info: Dict = {}
     ) -> Tuple[Any, Any, Dict, Any, Dict, Any]:
         """
         Computes a training step given input data.
@@ -51,6 +54,7 @@ class TFNetwork(Network):
         Args:
             batch_x: batch input training data in any model-compliant format
             batch_y: batch ground-truth training data in any model-compliant format
+            input_additional_info: additional input model data
 
         Returns:
             The following information is returned:
@@ -69,6 +73,7 @@ class TFNetwork(Network):
                 predictions, \
                 model_additional_info = self.batch_loss(batch_x,
                                                         batch_y,
+                                                        input_additional_info=input_additional_info,
                                                         training=True)
         grads = tape.gradient(loss, self.model.trainable_variables)
         return loss, true_loss, loss_info, predictions, model_additional_info, grads
@@ -77,7 +82,8 @@ class TFNetwork(Network):
     def batch_fit(
             self,
             batch_x: Any,
-            batch_y: Any
+            batch_y: Any,
+            input_additional_info: Dict = {}
     ) -> Tuple[Dict, Any, Dict]:
         """
         Computes a training step given input data.
@@ -85,6 +91,7 @@ class TFNetwork(Network):
         Args:
             batch_x: batch input training data in any model-compliant format
             batch_y: batch ground-truth training data in any model-compliant format
+            input_additional_info: additional input model data
 
         Returns:
             The computed training information for the current step:
@@ -99,7 +106,8 @@ class TFNetwork(Network):
             predictions, \
             model_additional_info, \
             grads = self.batch_train(batch_x=batch_x,
-                                     batch_y=batch_y)
+                                     batch_y=batch_y,
+                                     input_additional_info=input_additional_info)
 
         self.optimizer.apply_gradients(zip(grads, self.model.trainable_variables))
 
@@ -110,12 +118,14 @@ class TFNetwork(Network):
     def batch_predict(
             self,
             batch_x: Any,
+            input_additional_info: Dict = {}
     ) -> Tuple[Any, Dict]:
         """
         Computes model predictions for the given input batch.
 
         Args:
             batch_x: batch input training data in any model-compliant format
+            input_additional_info: additional input model data
 
         Returns:
             - Predictions: model raw output
@@ -123,6 +133,7 @@ class TFNetwork(Network):
         """
 
         predictions, model_additional_info = self.model(batch_x,
+                                                        input_additional_info=input_additional_info,
                                                         training=False)
         return predictions, model_additional_info
 
@@ -130,7 +141,8 @@ class TFNetwork(Network):
     def batch_evaluate(
             self,
             batch_x: Any,
-            batch_y: Any
+            batch_y: Any,
+            input_additional_info: Dict = {}
     ) -> Tuple[Any, Any, Dict, Any, Dict]:
         """
         Computes training loss for the given input batch without a issuing a gradient step.
@@ -138,6 +150,7 @@ class TFNetwork(Network):
         Args:
             batch_x: batch input training data in any model-compliant format
             batch_y: batch ground-truth training data in any model-compliant format
+            input_additional_info: additional input model data
 
         Returns:
             The following information is returned:
@@ -154,6 +167,7 @@ class TFNetwork(Network):
             predictions, \
             model_additional_info = self.batch_loss(batch_x=batch_x,
                                                     batch_y=batch_y,
+                                                    input_additional_info=input_additional_info,
                                                     training=False)
         loss_info['loss'] = true_loss
         return loss, true_loss, loss_info, predictions, model_additional_info
@@ -232,7 +246,10 @@ class TFNetwork(Network):
                         callbacks.run(hookpoint='on_batch_fit_begin',
                                       logs={'batch': batch_idx})
 
-                    batch_info, _, model_additional_info = self.batch_fit(*next(data_iterator))
+                    input_additional_info = self.model.input_additional_info() \
+                        if hasattr(self.model, 'input_additional_info') else {}
+                    batch_info, _, model_additional_info = self.batch_fit(*next(data_iterator),
+                                                                          input_additional_info=input_additional_info)
                     batch_info = {f'train_{key}': item.numpy() for key, item in batch_info.items()}
 
                     if callbacks:
@@ -317,11 +334,15 @@ class TFNetwork(Network):
             batch_x, batch_y = next(data_iterator)
             ground_truth.append(batch_y)
 
+            input_additional_info = self.model.input_additional_info() \
+                if hasattr(self.model, 'input_additional_info') else {}
             batch_loss, \
                 true_batch_loss, \
                 batch_loss_info, \
                 batch_predictions, \
-                model_additional_info = self.batch_evaluate(batch_x=batch_x, batch_y=batch_y)
+                model_additional_info = self.batch_evaluate(batch_x=batch_x,
+                                                            batch_y=batch_y,
+                                                            input_additional_info=input_additional_info)
 
             batch_info = {key: item.numpy() for key, item in batch_loss_info.items()}
 
@@ -397,7 +418,10 @@ class TFNetwork(Network):
                               logs={'batch': batch_idx,
                                     'suffixes': suffixes})
 
-            batch_predictions, model_additional_info = self.batch_predict(next(data_iterator))
+            input_additional_info = self.model.input_additional_info() \
+                if hasattr(self.model, 'input_additional_info') else {}
+            batch_predictions, model_additional_info = self.batch_predict(next(data_iterator),
+                                                                          input_additional_info=input_additional_info)
             if model_processor is not None:
                 batch_predictions = model_processor.run(data=batch_predictions)
             else:
