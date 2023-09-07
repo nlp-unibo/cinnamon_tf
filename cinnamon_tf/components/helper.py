@@ -24,7 +24,7 @@ class TFHelper(Helper):
             except AttributeError:
                 pass
 
-    def clear_status(
+    def clear(
             self
     ):
         K.clear_session()
