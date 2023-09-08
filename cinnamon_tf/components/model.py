@@ -198,6 +198,13 @@ class TFNetwork(Network):
 
         self.model.load_weights(filepath=filepath.joinpath('weights.h5'))
 
+    def prepare_for_training(
+            self,
+            train_data: FieldDict
+    ):
+        sample = next(train_data.input_iterator())
+        self.model(sample)
+
     @guard()
     def fit(
             self,
