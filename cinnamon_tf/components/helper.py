@@ -28,6 +28,7 @@ class TFHelper(Helper):
             self
     ):
         K.clear_session()
+        tf.compat.v1.reset_default_graph()
 
     def limit_gpu_usage(self):
         gpus = tf.config.experimental.list_physical_devices('GPU')

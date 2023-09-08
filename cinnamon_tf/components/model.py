@@ -183,7 +183,8 @@ class TFNetwork(Network):
             filepath: path where to save model's weights.
         """
 
-        self.model.save_weights(filepath=filepath.joinpath('weights.h5'))
+        if self.model is not None:
+            self.model.save_weights(filepath=filepath.joinpath('weights.h5'))
 
     def load_model(
             self,
@@ -196,7 +197,8 @@ class TFNetwork(Network):
             filepath: path where the model serialized checkpoint is stored.
         """
 
-        self.model.load_weights(filepath=filepath.joinpath('weights.h5'))
+        if self.model is not None:
+            self.model.load_weights(filepath=filepath.joinpath('weights.h5'))
 
     def prepare_for_training(
             self,
