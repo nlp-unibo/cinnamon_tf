@@ -48,6 +48,7 @@ class TFEarlyStopping(Callback):
         super(TFEarlyStopping, self).__init__(**kwargs)
 
         self.wait: int = 0
+        self.best_epoch: int = 0
         self.stopped_epoch: int = 0
         self.best_value: Optional[float] = None
         self.best_weights: Optional[int] = None
@@ -69,6 +70,7 @@ class TFEarlyStopping(Callback):
         """
 
         self.wait = 0
+        self.best_epoch = 0
         self.stopped_epoch = 0
         self.best_weights = None
         if self.baseline is not None:
@@ -94,6 +96,7 @@ class TFEarlyStopping(Callback):
             return
         if self.monitor_op(current - self.min_delta, self.best_value):
             self.best_value = current
+            self.best_epoch = logs['epoch']
             self.wait = 0
             if self.restore_best_weights:
                 self.best_weights = self.component.model.get_weights()
@@ -111,7 +114,7 @@ class TFEarlyStopping(Callback):
             logs: Optional[Dict] = None
     ):
         if self.stopped_epoch > 0:
-            logging_utility.logger.info(f'Epoch {self.stopped_epoch + 1:.2f} early stopping')
+            logging_utility.logger.info(f'Early stopping best epoch: {self.best_epoch}')
 
         self.reset()
 

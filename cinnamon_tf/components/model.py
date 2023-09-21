@@ -207,6 +207,33 @@ class TFNetwork(Network):
         sample = next(train_data.input_iterator())
         self.model(sample)
 
+    def input_additional_info(
+            self
+    ):
+        """
+        TODO: documentation
+
+        Returns:
+
+        """
+        return {}
+
+    def update_with_additional_info(
+            self,
+            input_additional_info: Dict
+    ):
+        """
+        TODO: documentation
+
+        Args:
+            input_additional_info:
+
+        Returns:
+
+        """
+
+        pass
+
     @guard()
     def fit(
             self,
@@ -259,6 +286,7 @@ class TFNetwork(Network):
                         if hasattr(self.model, 'input_additional_info') else {}
                     batch_info, _, model_additional_info = self.batch_fit(*next(data_iterator),
                                                                           input_additional_info=input_additional_info)
+                    self.model.update_with_additional_info(input_additional_info=input_additional_info)
                     batch_info = {f'train_{key}': item.numpy() for key, item in batch_info.items()}
 
                     if callbacks:
@@ -274,7 +302,7 @@ class TFNetwork(Network):
                     pbar.update(1)
 
             epoch_info = {key: item / train_data.steps for key, item in epoch_info.items()}
-            epoch_info['epoch'] = epoch
+            epoch_info['epoch'] = epoch + 1
 
             if val_data is not None:
                 val_info = self.evaluate(data=val_data,
