@@ -282,11 +282,10 @@ class TFNetwork(Network):
                         callbacks.run(hookpoint='on_batch_fit_begin',
                                       logs={'batch': batch_idx})
 
-                    input_additional_info = self.model.input_additional_info() \
-                        if hasattr(self.model, 'input_additional_info') else {}
+                    input_additional_info = self.input_additional_info()
                     batch_info, _, model_additional_info = self.batch_fit(*next(data_iterator),
                                                                           input_additional_info=input_additional_info)
-                    self.model.update_with_additional_info(input_additional_info=input_additional_info)
+                    self.update_with_additional_info(input_additional_info=input_additional_info)
                     batch_info = {f'train_{key}': item.numpy() for key, item in batch_info.items()}
 
                     if callbacks:
@@ -371,8 +370,7 @@ class TFNetwork(Network):
             batch_x, batch_y = next(data_iterator)
             ground_truth.append(batch_y)
 
-            input_additional_info = self.model.input_additional_info() \
-                if hasattr(self.model, 'input_additional_info') else {}
+            input_additional_info = self.input_additional_info()
             batch_loss, \
                 true_batch_loss, \
                 batch_loss_info, \
@@ -455,8 +453,7 @@ class TFNetwork(Network):
                               logs={'batch': batch_idx,
                                     'suffixes': suffixes})
 
-            input_additional_info = self.model.input_additional_info() \
-                if hasattr(self.model, 'input_additional_info') else {}
+            input_additional_info = self.input_additional_info()
             batch_predictions, model_additional_info = self.batch_predict(next(data_iterator),
                                                                           input_additional_info=input_additional_info)
             if model_processor is not None:
