@@ -3,7 +3,7 @@
 Available ``Configuration``
 *************************************
 
-Currently, ``cinnamon-tf`` provides the following registered ``Configuration``
+Currently, ``cinnamon-tf`` provides the following registered ``Configuration``.
 
 
 -------------------

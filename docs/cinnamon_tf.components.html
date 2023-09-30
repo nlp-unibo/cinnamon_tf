@@ -44,6 +44,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'cinnamon_tf.components';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cinnamon_tf.configurations package" href="cinnamon_tf.configurations.html" />
+    <link rel="prev" title="cinnamon_tf package" href="cinnamon_tf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,6 +127,40 @@
   </p>
   <ul class="bd-navbar-elements navbar-nav">
     
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="model.html">
+                         Model
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="callback.html">
+                         Callback
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="helper.html">
+                         Helper
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                         Catalog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="cinnamon_tf.html">
+                         cinnamon-tf
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
       
@@ -184,7 +220,7 @@ document.write(`
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -202,6 +238,40 @@ document.write(`
   </p>
   <ul class="bd-navbar-elements navbar-nav">
     
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="model.html">
+                         Model
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="callback.html">
+                         Callback
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="helper.html">
+                         Helper
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="catalog.html">
+                         Catalog
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="cinnamon_tf.html">
+                         cinnamon-tf
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
         
@@ -225,6 +295,18 @@ document.write(`
       </div>
     
   </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">cinnamon_tf.components package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cinnamon_tf.configurations.html">cinnamon_tf.configurations package</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
@@ -258,6 +340,9 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
+    
+    <li class="breadcrumb-item"><a href="cinnamon_tf.html" class="nav-link">cinnamon_tf package</a></li>
+    
     <li class="breadcrumb-item active" aria-current="page">cinnamon_tf.components package</li>
   </ul>
 </nav>
@@ -286,51 +371,22 @@ document.write(`
 <dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_tf.components.callback.</span></span><span class="sig-name descname"><span class="pre">TFEarlyStopping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.callback.TFEarlyStopping" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Callback</span></code></p>
-<p>Stop training when a monitored quantity has stopped improving.
-:param monitor: Quantity to be monitored.
-:param min_delta: Minimum change in the monitored quantity</p>
-<blockquote>
-<div><p>to qualify as an improvement, i.e. an absolute
-change of less than min_delta, will count as no
-improvement.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>patience</strong> – Number of epochs with no improvement
-after which training will be stopped.</p></li>
-<li><p><strong>verbose</strong> – verbosity mode.</p></li>
-<li><p><strong>mode</strong> – One of <cite>{“auto”, “min”, “max”}</cite>. In <cite>min</cite> mode,
-training will stop when the quantity
-monitored has stopped decreasing; in <cite>max</cite>
-mode it will stop when the quantity
-monitored has stopped increasing; in <cite>auto</cite>
-mode, the direction is automatically inferred
-from the name of the monitored quantity.</p></li>
-<li><p><strong>baseline</strong> – Baseline value for the monitored quantity.
-Training will stop if the model doesn’t show improvement over the
-baseline.</p></li>
-<li><p><strong>restore_best_weights</strong> – Whether to restore model weights from
-the epoch with the best value of the monitored quantity.
-If False, the model weights obtained at the last step of
-training are used.</p></li>
-</ul>
-</dd>
-</dl>
-<p>Example:
-<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
-callback = tf.keras.callbacks.EarlyStopping(monitor=’val_loss’, patience=3)
-# This callback will stop the training when there is no improvement in
-# the validation loss for three consecutive epochs.
-model.fit(data, labels, epochs=100, callbacks=[callback],</p>
-<blockquote>
-<div><p>validation_data=(val_data, val_labels))</p>
-</div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>Early stopping callback.
+Mainly inspired from the Keras implementation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping.get_monitor_value">
 <span class="sig-name descname"><span class="pre">get_monitor_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.callback.TFEarlyStopping.get_monitor_value" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the early stopping metric value (i.e., <cite>monitor</cite>) based on the given configuration.
+This method is invoked at the end of each epoch to decide whether to perform early stopping or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>logs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>]) – A dictionary containing callback hookpoint information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The early stopping metric value</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.callback.TFEarlyStopping.on_epoch_end">
@@ -363,9 +419,10 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cinnamon_tf.components.helper.</span></span><span class="sig-name descname"><span class="pre">TFHelper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Helper</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="cinnamon_tf.components.helper.TFHelper.clear_status">
-<span class="sig-name descname"><span class="pre">clear_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper.clear_status" title="Permalink to this definition">#</a></dt>
-<dd><p>Clears any backed-specific status.</p>
+<dt class="sig sig-object py" id="cinnamon_tf.components.helper.TFHelper.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.helper.TFHelper.clear" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO: documentation</p>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="py method">
@@ -414,13 +471,14 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Network</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_evaluate">
-<span class="sig-name descname"><span class="pre">batch_evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_evaluate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_additional_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_evaluate" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes training loss for the given input batch without a issuing a gradient step.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
 <li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+<li><p><strong>input_additional_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – additional input model data</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -441,13 +499,14 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_fit">
-<span class="sig-name descname"><span class="pre">batch_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_fit" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_additional_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes a training step given input data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
 <li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+<li><p><strong>input_additional_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – additional input model data</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -466,13 +525,14 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_loss">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_loss" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_additional_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_loss" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes model loss for given batch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input data in any model-compliant format</p></li>
 <li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth data in any model-compliant format</p></li>
+<li><p><strong>input_additional_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – additional input model data</p></li>
 <li><p><strong>training</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether the model is in training mode or not</p></li>
 </ul>
 </dd>
@@ -487,11 +547,14 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_predict">
-<span class="sig-name descname"><span class="pre">batch_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_predict" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_additional_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_predict" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes model predictions for the given input batch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
+<li><p><strong>input_additional_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – additional input model data</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>model raw output
@@ -508,13 +571,14 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.batch_train">
-<span class="sig-name descname"><span class="pre">batch_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_train" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">batch_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_additional_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.batch_train" title="Permalink to this definition">#</a></dt>
 <dd><p>Computes a training step given input data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>batch_x</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch input training data in any model-compliant format</p></li>
 <li><p><strong>batch_y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – batch ground-truth training data in any model-compliant format</p></li>
+<li><p><strong>input_additional_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – additional input model data</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -545,6 +609,13 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.input_additional_info">
+<span class="sig-name descname"><span class="pre">input_additional_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.input_additional_info" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO: documentation</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.load_model">
 <span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.load_model" title="Permalink to this definition">#</a></dt>
 <dd><p>Loads internal model’s weights from a serialized checkpoint stored in the filesystem.</p>
@@ -561,6 +632,19 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.prepare_for_training">
+<span class="sig-name descname"><span class="pre">prepare_for_training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.prepare_for_training" title="Permalink to this definition">#</a></dt>
+<dd><p>Entry point for preparing the model before training.
+For instance, computing class weights for regularizing an imbalanced classification setting
+can be computed here.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>train_data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FieldDict</span></code>) – a <code class="docutils literal notranslate"><span class="pre">FieldDict</span></code> representing training data. Each key is a specific input.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.save_model">
 <span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.save_model" title="Permalink to this definition">#</a></dt>
 <dd><p>Serializes internal model’s weights to filesystem.</p>
@@ -569,6 +653,18 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 <dd class="field-odd"><p><strong>filepath</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">AnyStr</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – path where to save model’s weights.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cinnamon_tf.components.model.TFNetwork.update_with_additional_info">
+<span class="sig-name descname"><span class="pre">update_with_additional_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_additional_info</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cinnamon_tf.components.model.TFNetwork.update_with_additional_info" title="Permalink to this definition">#</a></dt>
+<dd><p>TODO: documentation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_additional_info</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>) – </p>
+</dd>
+</dl>
+<p>Returns:</p>
 </dd></dl>
 
 </dd></dl>
@@ -590,6 +686,24 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="cinnamon_tf.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">cinnamon_tf package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cinnamon_tf.configurations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">cinnamon_tf.configurations package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -622,7 +736,7 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-cinnamon_tf.components.helper">cinnamon_tf.components.helper module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper"><code class="docutils literal notranslate"><span class="pre">TFHelper</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.clear_status"><code class="docutils literal notranslate"><span class="pre">TFHelper.clear_status()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.clear"><code class="docutils literal notranslate"><span class="pre">TFHelper.clear()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.enable_eager_execution"><code class="docutils literal notranslate"><span class="pre">TFHelper.enable_eager_execution()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.limit_gpu_usage"><code class="docutils literal notranslate"><span class="pre">TFHelper.limit_gpu_usage()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.helper.TFHelper.run"><code class="docutils literal notranslate"><span class="pre">TFHelper.run()</span></code></a></li>
@@ -640,9 +754,12 @@ model.fit(data, labels, epochs=100, callbacks=[callback],</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.batch_train"><code class="docutils literal notranslate"><span class="pre">TFNetwork.batch_train()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.evaluate"><code class="docutils literal notranslate"><span class="pre">TFNetwork.evaluate()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.fit"><code class="docutils literal notranslate"><span class="pre">TFNetwork.fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.input_additional_info"><code class="docutils literal notranslate"><span class="pre">TFNetwork.input_additional_info()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.load_model"><code class="docutils literal notranslate"><span class="pre">TFNetwork.load_model()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.predict"><code class="docutils literal notranslate"><span class="pre">TFNetwork.predict()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.prepare_for_training"><code class="docutils literal notranslate"><span class="pre">TFNetwork.prepare_for_training()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.save_model"><code class="docutils literal notranslate"><span class="pre">TFNetwork.save_model()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cinnamon_tf.components.model.TFNetwork.update_with_additional_info"><code class="docutils literal notranslate"><span class="pre">TFNetwork.update_with_additional_info()</span></code></a></li>
 </ul>
 </li>
 </ul>

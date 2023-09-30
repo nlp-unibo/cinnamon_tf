@@ -7,38 +7,9 @@ from cinnamon_generic.components.callback import Callback
 
 
 class TFEarlyStopping(Callback):
-    """Stop training when a monitored quantity has stopped improving.
-    Arguments:
-        monitor: Quantity to be monitored.
-        min_delta: Minimum change in the monitored quantity
-            to qualify as an improvement, i.e. an absolute
-            change of less than min_delta, will count as no
-            improvement.
-        patience: Number of epochs with no improvement
-            after which training will be stopped.
-        verbose: verbosity mode.
-        mode: One of `{"auto", "min", "max"}`. In `min` mode,
-            training will stop when the quantity
-            monitored has stopped decreasing; in `max`
-            mode it will stop when the quantity
-            monitored has stopped increasing; in `auto`
-            mode, the direction is automatically inferred
-            from the name of the monitored quantity.
-        baseline: Baseline value for the monitored quantity.
-            Training will stop if the model doesn't show improvement over the
-            baseline.
-        restore_best_weights: Whether to restore model weights from
-            the epoch with the best value of the monitored quantity.
-            If False, the model weights obtained at the last step of
-            training are used.
-    Example:
-    ```python
-    callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3)
-    # This callback will stop the training when there is no improvement in
-    # the validation loss for three consecutive epochs.
-    model.fit(data, labels, epochs=100, callbacks=[callback],
-        validation_data=(val_data, val_labels))
-    ```
+    """
+    Early stopping callback.
+    Mainly inspired from the Keras implementation.
     """
 
     def __init__(
@@ -122,6 +93,17 @@ class TFEarlyStopping(Callback):
             self,
             logs: Optional[Dict] = None
     ):
+        """
+        Retrieves the early stopping metric value (i.e., `monitor`) based on the given configuration.
+        This method is invoked at the end of each epoch to decide whether to perform early stopping or not.
+
+        Args:
+            logs: A dictionary containing callback hookpoint information.
+
+        Returns:
+            The early stopping metric value
+        """
+
         logs = logs if logs is not None else {}
         monitor_value = logs.get(self.monitor)
         if monitor_value is None:
