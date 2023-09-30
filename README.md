@@ -4,6 +4,13 @@ The tensorflow package offers ``Component`` and related ``Configuration`` that r
 
 Thus, ``cinnamon-tf`` mainly provides ``Model``, ``Callback`` and ``Helper`` implementations.
 
+## Documentation
+
+Check the online documentation of [cinnamon-tf](https://nlp-unibo.github.io/cinnamon_tf/) for more information.
+
+Check also the central [cinnamon](https://nlp-unibo.github.io/cinnamon/) documentation to overview all cinnamon packages!
+
+
 ## Components and Configurations
 
 The tensorflow package defines the following ``Component`` and ``Configuration``
