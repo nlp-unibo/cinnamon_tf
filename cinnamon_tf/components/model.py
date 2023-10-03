@@ -19,6 +19,19 @@ from cinnamon_generic.utility.printing_utility import prettify_statistics
 
 class TFNetwork(Network):
 
+    def accumulate(
+            self,
+            accumulator: Dict,
+            data: Union[tf.Tensor, Dict]
+    ):
+        if isinstance(data, tf.Tensor):
+            accumulator.setdefault('ground_truth', []).append(data.detach().cpu().numpy())
+        else:
+            for key, value in data.items():
+                accumulator.setdefault(key, []).append(value.detach().cpu().numpy())
+
+        return accumulator
+
     @abc.abstractmethod
     def batch_loss(
             self,
@@ -356,10 +369,10 @@ class TFNetwork(Network):
         """
 
         loss = defaultdict(float)
-        predictions = []
+        predictions = {}
+        ground_truth = {}
 
         data_iterator: Iterator = data.iterator()
-        ground_truth = []
         for batch_idx in tqdm(range(data.steps), leave=True, position=0, desc='Evaluating'):
 
             if callbacks:
@@ -368,7 +381,9 @@ class TFNetwork(Network):
                                     'suffixes': suffixes})
 
             batch_x, batch_y = next(data_iterator)
-            ground_truth.append(batch_y)
+
+            ground_truth = self.accumulate(accumulator=ground_truth,
+                                           data=batch_y)
 
             input_additional_info = self.input_additional_info()
             batch_loss, \
@@ -386,8 +401,9 @@ class TFNetwork(Network):
 
             if model_processor is not None:
                 batch_predictions = model_processor.run(data=batch_predictions)
-            else:
-                batch_predictions = batch_predictions.numpy()
+
+            predictions = self.accumulate(accumulator=predictions,
+                                          data=batch_predictions)
 
             if callbacks:
                 callbacks.run(hookpoint='on_batch_evaluate_end',
@@ -400,15 +416,11 @@ class TFNetwork(Network):
                                     'model_additional_info': model_additional_info,
                                     'suffixes': suffixes})
 
-            predictions.extend(batch_predictions)
-
-        predictions = np.array(predictions)
         loss = {key: item / data.steps for key, item in loss.items()}
 
         if 'output_iterator' not in data or metrics is None:
             metrics_info = {}
         else:
-            ground_truth = np.concatenate(ground_truth)
             metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
 
         return FieldDict({**loss, **{'metrics': metrics_info}, **{'predictions': predictions}})
@@ -443,7 +455,7 @@ class TFNetwork(Network):
                                  model_processor=model_processor,
                                  suffixes=suffixes)
 
-        predictions = []
+        predictions = {}
 
         data_iterator: Iterator = data.input_iterator() if 'input_iterator' in data else data.iterator()
         for batch_idx in tqdm(range(data.steps), leave=True, position=0, desc='Predicting'):
@@ -458,9 +470,9 @@ class TFNetwork(Network):
                                                                           input_additional_info=input_additional_info)
             if model_processor is not None:
                 batch_predictions = model_processor.run(data=batch_predictions)
-            else:
-                batch_predictions = batch_predictions.numpy()
-            predictions.extend(batch_predictions)
+
+            predictions = self.accumulate(accumulator=predictions,
+                                          data=batch_predictions)
 
             if callbacks:
                 callbacks.run(hookpoint='on_batch_predict_end',
@@ -469,11 +481,13 @@ class TFNetwork(Network):
                                     'model_additional_info': model_additional_info,
                                     'suffixes': suffixes})
 
-        predictions = np.array(predictions)
         if 'output_iterator' not in data or metrics is None:
             metrics_info = {}
         else:
-            ground_truth = np.concatenate([item for item in data.output_iterator()])
+            ground_truth = {}
+            for batch_y in data.output_iterator():
+                ground_truth = self.accumulate(accumulator=ground_truth, data=batch_y)
+
             metrics_info = metrics.run(y_pred=predictions, y_true=ground_truth, as_dict=True)
 
         return FieldDict({**{'predictions': predictions}, **{'metrics': metrics_info}})
